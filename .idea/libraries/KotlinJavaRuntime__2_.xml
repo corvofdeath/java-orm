@@ -6,6 +6,7 @@
       <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-test.jar!/" />
       <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-jdk7.jar!/" />
       <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-jdk8.jar!/" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
@@ -14,6 +15,19 @@
       <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-test-sources.jar!/" />
       <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-jdk7-sources.jar!/" />
       <root url="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-jdk8-sources.jar!/" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/build/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/demo/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/generated/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/legacy/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/main/core-api/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/main/core-impl/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/main/protocol-impl/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/main/user-api/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/main/user-impl/java" />
+      <root url="file://C:/Program Files (x86)/MySQL/Connector J 8.0/src/test/java" />
     </SOURCES>
+    <jarDirectory url="file://C:/Program Files (x86)/MySQL/Connector J 8.0" recursive="false" />
+    <jarDirectory url="file://C:/Program Files (x86)/MySQL/Connector J 8.0" recursive="false" type="SOURCES" />
   </library>
 </component>
