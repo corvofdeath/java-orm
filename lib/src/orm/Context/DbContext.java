@@ -59,7 +59,11 @@ public abstract class DbContext {
                 sqlGenerator.insertTableStatement(key);
             }
 
+            sqlGenerator.insertFinalStatement();
             Logger.writeLine(sqlGenerator.getStatement());
+
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sqlGenerator.getStatement());
 
         } catch(SQLException e) {
             e.printStackTrace();

@@ -6,7 +6,7 @@ import orm.Context.*;
 public class ApplicationContext extends DbContext {
 
     public ApplicationContext() {
-        super("mysql://localhost:3306/softTest", "root", "root");
+        super("mysql://localhost:3306/generated", "root", "root");
     }
 
     @Override
@@ -19,6 +19,7 @@ public class ApplicationContext extends DbContext {
         DbSet<FuncionarioProjeto> funcionarioProjeto = new DbSet<>(FuncionarioProjeto.class);
         DbSet<Gerente> gerentes = new DbSet<>(Gerente.class);
         DbSet<Projeto> projetos = new DbSet<>(Projeto.class);
+        DbSet<Teste> testes = new DbSet<>(Teste.class);
 
         // register dbsets on dbcontext
         this.addDbSet(Funcionario.class, funcionarios);
@@ -27,5 +28,6 @@ public class ApplicationContext extends DbContext {
         this.addDbSet(FuncionarioProjeto.class, funcionarioProjeto);
         this.addDbSet(Gerente.class, gerentes);
         this.addDbSet(Projeto.class, projetos);
+        this.addDbSet(Teste.class, testes);
     }
 }

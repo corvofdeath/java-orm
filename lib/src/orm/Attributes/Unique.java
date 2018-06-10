@@ -5,5 +5,5 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Unique {
-    String instruction() default "UNIQUE KEY";
+    String instruction() default "\nUNIQUE KEY `$_UNIQUE` (`$`),";
 }

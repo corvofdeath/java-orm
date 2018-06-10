@@ -7,5 +7,6 @@ import java.lang.annotation.*;
 public @interface ForeingKey {
     String table();
     String constrange() default "int(10) NOT NULL";
-    String instruction() default "CONSTRAINT $ FOREIGN KEY $ REFERENCES $ ($)";
+    // % = generated-key / $ = property-name / & = table-name
+    String instruction() default "\nKEY `%x` (`$`),\nCONSTRAINT `%x` FOREIGN KEY (`$`) REFERENCES `&` (`id`),";
 }

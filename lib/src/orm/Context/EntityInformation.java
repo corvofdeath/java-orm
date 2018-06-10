@@ -41,6 +41,43 @@ public class EntityInformation {
         return list.toArray(array);
     }
 
+    public EntityKeyInformation[] getKeysInformations() {
+        ArrayList<EntityKeyInformation> list = new ArrayList<>();
+
+        for (Field field : ReflectionExtensions.getAllFields(new ArrayList<Field>(), entity)) {
+
+            field.setAccessible(true);
+            String fieldName = field.getName();
+            String instruction = "";
+
+            Annotation[] annotations = field.getDeclaredAnnotations();
+            for (Annotation annotation : annotations) {
+                instruction += " " + handleKeyAnnotation(annotation, fieldName, entity.getSimpleName());
+            }
+
+            list.add(new EntityKeyInformation(fieldName, instruction));
+        }
+
+        EntityKeyInformation[] array = new EntityKeyInformation[list.size()];
+        return list.toArray(array);
+    }
+
+    private String handleKeyAnnotation(Annotation annotation, String name, String table) {
+        if (annotation instanceof Key) {
+            Key attribute = (Key) annotation;
+            return attribute.instruction();
+        } else if (annotation instanceof Unique) {
+            Unique attribute = (Unique) annotation;
+            return  attribute.instruction().replace("$", name);
+        } else if (annotation instanceof ForeingKey) {
+            ForeingKey attribute = (ForeingKey) annotation;
+            String key = generateUniqueKey(name, table);
+            return  attribute.instruction().replace("%", key).replace("$", name).replace("&", attribute.table());
+        }
+
+        return "";
+    }
+
     private String handleTypeAnnotation(Annotation annotation) {
 
         if (annotation instanceof AutoIncrement) {
@@ -73,5 +110,9 @@ public class EntityInformation {
         }
 
         return "";
+    }
+
+    private String generateUniqueKey(String name, String table) {
+        return table + "_" + name;
     }
 }
