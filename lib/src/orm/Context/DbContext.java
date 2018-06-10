@@ -6,7 +6,7 @@ import java.sql.*;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class DbContext {
+public abstract class DbContext {
 
     private Connection connection;
     private String url = "jdbc:";
@@ -17,7 +17,7 @@ public class DbContext {
 
     protected final HashMap<Class, DbSet> dbSets;
 
-    DbContext(String connectionString, String user, String password) {
+    public DbContext(String connectionString, String user, String password) {
         this.url += connectionString;
         this.user = user;
         this.password = password;
@@ -29,8 +29,18 @@ public class DbContext {
         init();
     }
 
+    protected void addDbSet(Class key, DbSet value){
+        this.dbSets.put(key, value);
+    }
+
+    // overload to fill dbsets
+    protected abstract void fillDbSets();
+
     private void init() {
         Logger.writeLine("[Database] Initialization Start...");
+
+        // initialize dbsets based on entities
+        fillDbSets();
 
         try {
 
