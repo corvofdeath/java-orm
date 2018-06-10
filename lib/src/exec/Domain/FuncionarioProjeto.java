@@ -12,5 +12,6 @@ public class FuncionarioProjeto extends Entity {
     private String projetoID;
 
     @Integer
+    @AllowNull
     private int horas;
 }

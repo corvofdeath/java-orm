@@ -11,8 +11,10 @@ public abstract class Entity {
     private int id;
 
     @DateTime
+    @Required
     private Date createdAt;
 
     @DateTime
+    @AllowNull
     private Date updatedAt;
 }

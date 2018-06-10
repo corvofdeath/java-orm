@@ -6,12 +6,15 @@ import orm.Attributes.Integer;
 public class Projeto extends Entity {
 
     @Varchar
+    @Required
     private String nome;
 
     @Integer
+    @Required
     private int numero;
 
     @Varchar
+    @Required
     private String localizacao;
 
 

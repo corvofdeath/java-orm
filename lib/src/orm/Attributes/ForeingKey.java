@@ -6,5 +6,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ForeingKey {
     String table();
+    String constrange() default "int(10) NOT NULL";
     String instruction() default "CONSTRAINT $ FOREIGN KEY $ REFERENCES $ ($)";
 }

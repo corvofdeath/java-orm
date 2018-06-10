@@ -10,5 +10,6 @@ public class Departamento extends Entity {
     private int numero;
 
     @Varchar
+    @Required
     private String nome;
 }

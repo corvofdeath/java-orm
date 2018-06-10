@@ -1,5 +1,6 @@
 package exec;
 
+import exec.Infra.ApplicationContext;
 import orm.CreateDatabase;
 
 import java.sql.*;
@@ -9,16 +10,7 @@ public class Main {
     public static void main (String[] args) throws Exception {
         try {
 
-            String serverName = "localhost:3306";
-            String mydatabase = "softsoft";
-            String url = "jdbc:mysql://" + serverName + "/teste2" + "?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC";
-
-            String username = "root";
-            String password = "root";
-            Connection connection = DriverManager.getConnection(url, username, password);
-
-            //CreateDatabase create = new CreateDatabase();
-            //create.Create(connection, "teste2");
+            ApplicationContext context = new ApplicationContext();
         } catch (Exception e) {
             throw e;
         }

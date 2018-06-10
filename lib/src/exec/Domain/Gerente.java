@@ -12,7 +12,7 @@ public class Gerente extends Entity {
     @ForeingKey(table = "Departamento")
     private String departamentoID;
 
-
     @DateTime
+    @Required
     private Date inicio;
 }

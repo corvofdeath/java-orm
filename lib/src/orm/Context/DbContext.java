@@ -1,5 +1,7 @@
 package orm.Context;
 
+import com.mysql.cj.log.Log;
+import orm.SqlGenerator.Generator;
 import utils.Logger;
 
 import java.sql.*;
@@ -49,6 +51,15 @@ public abstract class DbContext {
             Connection connection = DriverManager.getConnection(this.getUrl(), this.user, this.password);
             Logger.writeLine("[Database] Connection Successful");
 
+            // generate sql
+            Generator sqlGenerator = new Generator();
+            sqlGenerator.initSQLStatement(this.database);
+
+            for (Class key : this.dbSets.keySet()) {
+                sqlGenerator.insertTableStatement(key);
+            }
+
+            Logger.writeLine(sqlGenerator.getStatement());
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -78,7 +89,7 @@ public abstract class DbContext {
 
     private String updateUrl (String[] parts) {
 
-        this.url = parts[0] + "//" + parts[1] + "/" + parts[2];
+        this.url = "jdbc:" + parts[0] + "/" + parts[1] + "/" + parts[2];
 
         return this.url;
     }
