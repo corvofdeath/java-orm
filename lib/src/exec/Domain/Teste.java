@@ -3,6 +3,7 @@ package exec.Domain;
 import orm.Attributes.ForeingKey;
 import orm.Attributes.Required;
 import orm.Attributes.Varchar;
+import orm.Entity;
 
 public class Teste extends Entity {
 

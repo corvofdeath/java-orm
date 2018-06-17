@@ -1,6 +1,7 @@
 package exec.Domain;
 
 import orm.Attributes.*;
+import orm.Entity;
 
 import java.util.Date;
 

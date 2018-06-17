@@ -93,7 +93,7 @@ public abstract class DbContext {
     }
 
     private String getFullUrl() {
-        return this.url + this.database + this.options;
+        return this.url + "/" + this.database + this.options;
     }
 
     private String getDatabaseName(String connectionString) {
@@ -110,7 +110,10 @@ public abstract class DbContext {
     private String updateUrl (String[] parts) {
 
         this.url = "jdbc:" + parts[0] + "/" + parts[1] + "/" + parts[2];
-
         return this.url;
+    }
+
+    public DbSet getDbset(Class tableName) {
+        return dbSets.get(tableName);
     }
 }

@@ -27,9 +27,19 @@ public class Statement extends Query implements IStatement {
 
         for (ValueInformation information : getValues(object)) {
 
-            if (information.getColumn().equals("id")) continue;
+            if (information.getColumn().equals("createdAt")) {
+                columns.append(information.getColumn()).append(",");
+                values.append("'").append("2015/2/2").append("',");
+                continue;
+            }
 
-            columns.append("'").append(information.getColumn()).append("',");
+            if (information.getColumn().equals("updatedAt")) {
+                columns.append(information.getColumn()).append(",");
+                values.append("'").append("2015/2/2").append("',");
+                continue;
+            }
+
+            columns.append(information.getColumn()).append(",");
             values.append("'").append(information.getValue()).append("',");
         }
 
@@ -40,7 +50,7 @@ public class Statement extends Query implements IStatement {
         values.append(")");
 
         this.statement.append(columns).append(" VALUES ").append(values).append(";");
-
+        Logger.writeLine(this.getQuery());
         return this;
     }
 
@@ -52,14 +62,28 @@ public class Statement extends Query implements IStatement {
 
         for (ValueInformation information : getValues(object)) {
 
-            if (information.getColumn().equals("id")) id = information.getValue();
+            if (information.getColumn().equals("id")) {
+                id = information.getValue();
+                continue;
+            }
 
-            this.statement.append(information.getColumn()).append(" = ").append(information.getValue()).append(", ");
+            if (information.getColumn().equals("createdAt")) {
+                this.statement.append(information.getColumn()).append(" = ").append("'2015/2/2'").append(", ");
+                continue;
+            }
+
+            if (information.getColumn().equals("updatedAt")) {
+                this.statement.append(information.getColumn()).append(" = ").append("'2015/2/2'").append(", ");
+                continue;
+            }
+
+            this.statement.append(information.getColumn()).append(" = '").append(information.getValue()).append("', ");
         }
 
         this.statement.deleteCharAt(this.statement.lastIndexOf(","));
 
         this.statement.append(" WHERE id = ").append(id).append(";");
+        Logger.writeLine(this.getQuery());
         return this;
     }
 
