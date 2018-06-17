@@ -7,6 +7,7 @@ import orm.Querys.Implementation.Statement;
 import utils.Logger;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class DbSet<T extends Entity> {
@@ -20,6 +21,8 @@ public class DbSet<T extends Entity> {
     public T insert(T entity) {
 
         entity.setId(UUID.randomUUID());
+        entity.setCreatedAt(LocalDate.now());
+        entity.setUpdatedAt(LocalDate.now());
 
         Statement query = new Statement(classType.getSimpleName());
         query.create(entity);
@@ -31,6 +34,8 @@ public class DbSet<T extends Entity> {
 
     public T update(T entity) {
 
+        entity.setUpdatedAt(LocalDate.now());
+
         Statement query = new Statement(classType.getSimpleName());
         query.update(entity);
         executeUpdateQuery(query);
@@ -39,6 +44,7 @@ public class DbSet<T extends Entity> {
     }
 
     public void delete(T entity) {
+
         Statement query = new Statement(classType.getSimpleName());
         query.delete(entity);
 

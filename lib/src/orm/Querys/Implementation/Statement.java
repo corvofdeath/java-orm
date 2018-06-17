@@ -6,7 +6,9 @@ import utils.Logger;
 import utils.ReflectionExtensions;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class Statement extends Query implements IStatement {
@@ -26,18 +28,6 @@ public class Statement extends Query implements IStatement {
         StringBuilder values = new StringBuilder().append("(");
 
         for (ValueInformation information : getValues(object)) {
-
-            if (information.getColumn().equals("createdAt")) {
-                columns.append(information.getColumn()).append(",");
-                values.append("'").append("2015/2/2").append("',");
-                continue;
-            }
-
-            if (information.getColumn().equals("updatedAt")) {
-                columns.append(information.getColumn()).append(",");
-                values.append("'").append("2015/2/2").append("',");
-                continue;
-            }
 
             columns.append(information.getColumn()).append(",");
             values.append("'").append(information.getValue()).append("',");
@@ -64,16 +54,6 @@ public class Statement extends Query implements IStatement {
 
             if (information.getColumn().equals("id")) {
                 id = information.getValue();
-                continue;
-            }
-
-            if (information.getColumn().equals("createdAt")) {
-                this.statement.append(information.getColumn()).append(" = ").append("'2015/2/2'").append(", ");
-                continue;
-            }
-
-            if (information.getColumn().equals("updatedAt")) {
-                this.statement.append(information.getColumn()).append(" = ").append("'2015/2/2'").append(", ");
                 continue;
             }
 
@@ -122,4 +102,8 @@ public class Statement extends Query implements IStatement {
         ValueInformation[] array = new ValueInformation[information.size()];
         return information.toArray(array);
     }
+
+    /*private String getDate(String date) {
+
+    }*/
 }

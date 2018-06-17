@@ -2,7 +2,7 @@ package orm;
 
 import orm.Attributes.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public abstract class Entity {
@@ -12,11 +12,11 @@ public abstract class Entity {
 
     @DateTime
     @Required
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @DateTime
     @AllowNull
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
     public String getId() {
         return id.toString();
@@ -26,19 +26,19 @@ public abstract class Entity {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

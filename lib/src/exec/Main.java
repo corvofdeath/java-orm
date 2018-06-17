@@ -3,9 +3,6 @@ package exec;
 import exec.Domain.Departamento;
 import exec.Infra.ApplicationContext;
 import orm.Context.Options;
-import utils.Logger;
-
-import java.util.Date;
 
 public class Main {
 
@@ -30,9 +27,7 @@ public class Main {
 
                 Departamento teste = new Departamento();
                 teste.setNome("Filipe");
-                teste.setNumero(15);
-                teste.setCreatedAt(new Date());
-                teste.setUpdatedAt(new Date());
+                teste.setNumero(145);
 
                 context.getDbset(Departamento.class).insert(teste);
             }
