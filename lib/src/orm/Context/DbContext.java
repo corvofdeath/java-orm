@@ -1,6 +1,5 @@
 package orm.Context;
 
-import com.mysql.cj.log.Log;
 import orm.SqlGenerator.Generator;
 import orm.SqlGenerator.WriteSql;
 import utils.Logger;
@@ -19,6 +18,8 @@ public abstract class DbContext {
     private String options = "?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC";
 
     protected final HashMap<Class, DbSet> dbSets;
+
+    public static ConnectionFactory connectionFactory;
 
     // Normal Constructor
     public DbContext(String connectionString, String user, String password) {
@@ -59,43 +60,36 @@ public abstract class DbContext {
         // initialize dbsets based on entities
         fillDbSets();
 
-        try {
+        if (options.equals(Options.dump)) {
 
-            if (options.equals(Options.dump)) {
+            Logger.writeLine("\n[Database]: Start dump...\n\n");
 
-                Logger.writeLine("\n[Database]: Start dump...\n\n");
+            // generate sq
+            Generator sqlGenerator = new Generator();
+            sqlGenerator.initSQLStatement(this.database);
 
-                // generate sq
-                Generator sqlGenerator = new Generator();
-                sqlGenerator.initSQLStatement(this.database);
-
-                for (Class key : this.dbSets.keySet()) {
-                    sqlGenerator.insertTableStatement(key);
-                }
-
-                sqlGenerator.insertFinalStatement();
-
-                // TODO: jogar num arquivo
-                String sql = sqlGenerator.getStatement();
-                Logger.writeLine(sql);
-                WriteSql.createDumpFile(sql);
-                Logger.writeLine("[Database]: Finish dump!");
-
-            } else {
-
-                // establish a connection with database
-                Logger.writeLine("[Database] try connection to: " + this.getFullUrl());
-                Connection connection = DriverManager.getConnection(this.getFullUrl(), this.user, this.password);
-                Logger.writeLine("[Database] Connection Successful");
-                connection.close();
-
+            for (Class key : this.dbSets.keySet()) {
+                sqlGenerator.insertTableStatement(key);
             }
 
-        } catch(SQLException e) {
-            e.printStackTrace();
-            Logger.writeLine("Error message: " + e.getMessage());
-            Logger.writeLine("[Database] Initialization ERROR!");
+            sqlGenerator.insertFinalStatement();
+
+            // TODO: jogar num arquivo
+            String sql = sqlGenerator.getStatement();
+            Logger.writeLine(sql);
+            WriteSql.createDumpFile(sql);
+            Logger.writeLine("[Database]: Finish dump!");
+
+        } else {
+
+            // establish a connection with database
+            Logger.writeLine("[Database] try connection to: " + this.getFullUrl());
+            DbContext.connectionFactory = new ConnectionFactory(this.getFullUrl(), this.user, this.password);
+            Connection connection = DbContext.connectionFactory.getConnection();
+            Logger.writeLine("[Database] Connection Successful");
+            DbContext.connectionFactory.closeConnection(connection);
         }
+
     }
 
     private String getFullUrl() {

@@ -9,7 +9,7 @@ public class ApplicationContext extends DbContext {
         super("mysql://localhost:3306/mybussiness", "root", "root");
     }
     public ApplicationContext(Options option) {
-        super("mysql://localhost:3306/generated", "root", "root", option);
+        super("mysql://localhost:3306/mybussiness", "root", "root", option);
     }
 
     @Override
