@@ -3,7 +3,6 @@ package orm.Context;
 import orm.Entity;
 import orm.Querys.IQuery;
 import orm.Querys.IQueryable;
-import orm.Querys.Implementation.*;
 import orm.Querys.Implementation.Statement;
 import utils.Logger;
 import utils.ReflectionExtensions;
@@ -11,7 +10,6 @@ import utils.ReflectionExtensions;
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -58,7 +56,10 @@ public class DbSet<T extends Entity> {
 
     public T get(IQueryable query) {
 
-        executeQuery(query);
+        ArrayList<T> result = executeQuery(query);
+
+        if (result.size() > 0)
+            return result.get(0);
 
         return null;
     }

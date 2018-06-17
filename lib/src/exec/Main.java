@@ -34,11 +34,9 @@ public class Main {
                 teste.setNumero(21);
 
                 //context.getDbset(Departamento.class).insert(teste);
-                ArrayList<Departamento> list = context.getDbset(Departamento.class).getAll(new Queryable("departamento"));
+                Departamento dep = (Departamento) context.getDbset(Departamento.class).get(new Queryable("departamento").where("nome='asdasd'"));
+                Logger.writeLine(dep.getNome());
 
-                for (Departamento dep : list) {
-                    Logger.writeLine(dep.getCreatedAt().toString());
-                }
             }
 
         } catch (Exception e) {
