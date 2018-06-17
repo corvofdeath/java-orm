@@ -2,6 +2,7 @@ package orm.Context;
 
 import com.mysql.cj.log.Log;
 import orm.SqlGenerator.Generator;
+import orm.SqlGenerator.WriteSql;
 import utils.Logger;
 
 import java.sql.*;
@@ -19,6 +20,7 @@ public abstract class DbContext {
 
     protected final HashMap<Class, DbSet> dbSets;
 
+    // Normal Constructor
     public DbContext(String connectionString, String user, String password) {
         this.url += connectionString;
         this.user = user;
@@ -28,7 +30,20 @@ public abstract class DbContext {
         this.dbSets = new HashMap<Class, DbSet>();
 
         // Init database
-        init();
+        init(Options.none);
+    }
+
+    // Options constructor
+    public DbContext(String connectionString, String user, String password, Options option) {
+        this.url += connectionString;
+        this.user = user;
+        this.password = password;
+        this.database = getDatabaseName(connectionString);
+
+        this.dbSets = new HashMap<Class, DbSet>();
+
+        // Init database
+        init(option);
     }
 
     protected void addDbSet(Class key, DbSet value){
@@ -38,7 +53,7 @@ public abstract class DbContext {
     // overload to fill dbsets
     protected abstract void fillDbSets();
 
-    private void init() {
+    private void init(Options options) {
         Logger.writeLine("[Database] Initialization Start...");
 
         // initialize dbsets based on entities
@@ -46,24 +61,35 @@ public abstract class DbContext {
 
         try {
 
-            // establish a connection with database
-            Logger.writeLine("[Database] try connection to: " + this.getUrl());
-            Connection connection = DriverManager.getConnection(this.getUrl(), this.user, this.password);
-            Logger.writeLine("[Database] Connection Successful");
+            if (options.equals(Options.dump)) {
 
-            // generate sql
-            Generator sqlGenerator = new Generator();
-            sqlGenerator.initSQLStatement(this.database);
+                Logger.writeLine("\n[Database]: Start dump...\n\n");
 
-            for (Class key : this.dbSets.keySet()) {
-                sqlGenerator.insertTableStatement(key);
+                // generate sq
+                Generator sqlGenerator = new Generator();
+                sqlGenerator.initSQLStatement(this.database);
+
+                for (Class key : this.dbSets.keySet()) {
+                    sqlGenerator.insertTableStatement(key);
+                }
+
+                sqlGenerator.insertFinalStatement();
+
+                // TODO: jogar num arquivo
+                String sql = sqlGenerator.getStatement();
+                Logger.writeLine(sql);
+                WriteSql.createDumpFile(sql);
+                Logger.writeLine("[Database]: Finish dump!");
+
+            } else {
+
+                // establish a connection with database
+                Logger.writeLine("[Database] try connection to: " + this.getFullUrl());
+                Connection connection = DriverManager.getConnection(this.getFullUrl(), this.user, this.password);
+                Logger.writeLine("[Database] Connection Successful");
+                connection.close();
+
             }
-
-            sqlGenerator.insertFinalStatement();
-            Logger.writeLine(sqlGenerator.getStatement());
-
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(sqlGenerator.getStatement());
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -74,10 +100,6 @@ public abstract class DbContext {
 
     private String getFullUrl() {
         return this.url + this.database + this.options;
-    }
-
-    private String getUrl() {
-        return  this.url + this.options;
     }
 
     private String getDatabaseName(String connectionString) {

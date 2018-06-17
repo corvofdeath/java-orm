@@ -16,7 +16,7 @@ public class Generator {
 
         // Create dabase statement
         statement.append("CREATE DATABASE  IF NOT EXISTS `").append(database).append("` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;\n");
-        //statement.append("USE `").append(database).append("`;\n");
+        statement.append("USE `").append(database).append("`;\n");
 
         statement.append("-- JAVA-SA-ORM --\n");
         statement.append("-- ------------------------------------------------------\n\n");
