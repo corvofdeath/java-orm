@@ -3,6 +3,10 @@ package exec;
 import exec.Domain.Departamento;
 import exec.Infra.ApplicationContext;
 import orm.Context.Options;
+import orm.Querys.Implementation.Queryable;
+import utils.Logger;
+
+import java.util.ArrayList;
 
 public class Main {
 
@@ -26,10 +30,15 @@ public class Main {
                 // TODO: rodar o programa
 
                 Departamento teste = new Departamento();
-                teste.setNome("Filipe");
-                teste.setNumero(145);
+                teste.setNome("Doido");
+                teste.setNumero(21);
 
-                context.getDbset(Departamento.class).insert(teste);
+                //context.getDbset(Departamento.class).insert(teste);
+                ArrayList<Departamento> list = context.getDbset(Departamento.class).getAll(new Queryable("departamento"));
+
+                for (Departamento dep : list) {
+                    Logger.writeLine(dep.getCreatedAt().toString());
+                }
             }
 
         } catch (Exception e) {
