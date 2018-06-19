@@ -72,12 +72,12 @@ public class Statement extends Query implements IStatement {
     @Override
     public IQuery delete(Object object) {
 
-        this.statement.append("DELETE FROM ").append(table).append(" WHERE id = ");
+        this.statement.append("DELETE FROM ").append(table).append(" WHERE id = '");
 
         for (ValueInformation information : getValues(object)) {
 
             if (information.getColumn().equals("id")) {
-                this.statement.append(information.getValue()).append(";");
+                this.statement.append(information.getValue()).append("'").append(";");
                 break;
             }
         }
