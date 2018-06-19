@@ -40,6 +40,7 @@ public class Statement extends Query implements IStatement {
         values.append(")");
 
         this.statement.append(columns).append(" VALUES ").append(values).append(";");
+        Logger.writeLine("[Query] - Executando a query...");
         Logger.writeLine(this.getQuery());
         return this;
     }
@@ -63,6 +64,7 @@ public class Statement extends Query implements IStatement {
         this.statement.deleteCharAt(this.statement.lastIndexOf(","));
 
         this.statement.append(" WHERE id = ").append(id).append(";");
+        Logger.writeLine("[Query] - Executando a query...");
         Logger.writeLine(this.getQuery());
         return this;
     }
@@ -80,6 +82,8 @@ public class Statement extends Query implements IStatement {
             }
         }
 
+        Logger.writeLine("[Query] - Executando a query...");
+        Logger.writeLine(this.getQuery());
         return this;
     }
 

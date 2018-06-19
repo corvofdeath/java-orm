@@ -1,6 +1,7 @@
 package orm.Querys.Implementation;
 
 import orm.Querys.IQueryable;
+import utils.Logger;
 
 public class Queryable extends Query implements IQueryable {
 
@@ -14,6 +15,8 @@ public class Queryable extends Query implements IQueryable {
         this.statement.deleteCharAt(this.statement.lastIndexOf(";"));
         this.statement.append(" WHERE ").append(where).append(";");
 
+        Logger.writeLine("[Query] - Executando a query...");
+        Logger.writeLine(this.getQuery());
         return this;
     }
 
