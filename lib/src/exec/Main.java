@@ -1,5 +1,6 @@
 package exec;
 
+import exec.App.Program;
 import exec.Domain.Departamento;
 import exec.Infra.ApplicationContext;
 import orm.Context.Options;
@@ -24,18 +25,11 @@ public class Main {
                 }
             } else {
 
-                // run normal program
+                // run normal Program
                 ApplicationContext context = new ApplicationContext();
 
                 // TODO: rodar o programa
-
-                Departamento teste = new Departamento();
-                teste.setNome("Doido");
-                teste.setNumero(21);
-
-                //context.getDbset(Departamento.class).insert(teste);
-                Departamento dep = (Departamento) context.getDbset(Departamento.class).get(new Queryable("departamento").where("nome='asdasd'"));
-                Logger.writeLine(dep.getNome());
+                Program app = new Program("Bussiness", context);
 
             }
 

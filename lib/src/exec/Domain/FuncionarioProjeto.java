@@ -15,4 +15,28 @@ public class FuncionarioProjeto extends Entity {
     @Integer
     @AllowNull
     private int horas;
+
+    public String getFuncionarioID() {
+        return funcionarioID;
+    }
+
+    public void setFuncionarioID(String funcionarioID) {
+        this.funcionarioID = funcionarioID;
+    }
+
+    public String getProjetoID() {
+        return projetoID;
+    }
+
+    public void setProjetoID(String projetoID) {
+        this.projetoID = projetoID;
+    }
+
+    public int getHoras() {
+        return horas;
+    }
+
+    public void setHoras(int horas) {
+        this.horas = horas;
+    }
 }

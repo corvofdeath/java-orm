@@ -4,6 +4,7 @@ import orm.Attributes.*;
 import orm.Attributes.Integer;
 import orm.Entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Dependente extends Entity {
@@ -14,7 +15,7 @@ public class Dependente extends Entity {
 
     @DateTime
     @Required
-    private Date nascimento;
+    private LocalDate nascimento;
 
     @Integer
     @Required
@@ -25,5 +26,45 @@ public class Dependente extends Entity {
     private String relacionamento;
 
     @ForeingKey(table = "Funcionario")
-    private int funcionarioId;
+    private String funcionarioId;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public LocalDate getNascimento() {
+        return nascimento;
+    }
+
+    public void setNascimento(LocalDate nascimento) {
+        this.nascimento = nascimento;
+    }
+
+    public int getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(int sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getRelacionamento() {
+        return relacionamento;
+    }
+
+    public void setRelacionamento(String relacionamento) {
+        this.relacionamento = relacionamento;
+    }
+
+    public String getFuncionarioId() {
+        return funcionarioId;
+    }
+
+    public void setFuncionarioId(String funcionarioId) {
+        this.funcionarioId = funcionarioId;
+    }
 }

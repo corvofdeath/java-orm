@@ -3,6 +3,7 @@ package exec.Domain;
 import orm.Attributes.*;
 import orm.Entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Gerente extends Entity {
@@ -15,5 +16,29 @@ public class Gerente extends Entity {
 
     @DateTime
     @Required
-    private Date inicio;
+    private LocalDate inicio;
+
+    public String getFuncionarioID() {
+        return funcionarioID;
+    }
+
+    public void setFuncionarioID(String funcionarioID) {
+        this.funcionarioID = funcionarioID;
+    }
+
+    public String getDepartamentoID() {
+        return departamentoID;
+    }
+
+    public void setDepartamentoID(String departamentoID) {
+        this.departamentoID = departamentoID;
+    }
+
+    public LocalDate getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(LocalDate inicio) {
+        this.inicio = inicio;
+    }
 }
