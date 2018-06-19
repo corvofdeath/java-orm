@@ -65,7 +65,8 @@ public class DbSet<T extends Entity> {
     }
 
     public ArrayList<T> getAll(IQueryable query) {
-
+        Logger.writeLine("[Query] - Executando a query...");
+        Logger.writeLine(query.getQuery());
         return executeQuery(query);
     }
 

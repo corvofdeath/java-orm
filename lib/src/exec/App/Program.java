@@ -18,19 +18,12 @@ public class Program {
     public void runApp(){
 
         boolean flag = true;
+        Menu menu = new Menu(novaEmpresa);
 
         while (flag){
 
-            Logger.writeLine("1 - departamento, x - sair");
+            flag = menu.menuPrincipal();
 
-            switch (this.entrada.nextInt()){
-                case 1:
-                    this.novaEmpresa.addFuncionario();
-                    break;
-                default:
-                    flag = false;
-                    break;
-            }
         }
     }
 }
