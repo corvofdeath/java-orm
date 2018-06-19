@@ -63,7 +63,7 @@ public class Statement extends Query implements IStatement {
 
         this.statement.deleteCharAt(this.statement.lastIndexOf(","));
 
-        this.statement.append(" WHERE id = ").append(id).append(";");
+        this.statement.append(" WHERE id = '").append(id).append("'").append(";");
         Logger.writeLine("[Query] - Executando a query...");
         Logger.writeLine(this.getQuery());
         return this;
