@@ -26,7 +26,7 @@ public class Dependente extends Entity {
     private String relacionamento;
 
     @ForeingKey(table = "Funcionario")
-    private int funcionarioId;
+    private String funcionarioId;
 
     public String getNome() {
         return nome;
@@ -60,11 +60,11 @@ public class Dependente extends Entity {
         this.relacionamento = relacionamento;
     }
 
-    public int getFuncionarioId() {
+    public String getFuncionarioId() {
         return funcionarioId;
     }
 
-    public void setFuncionarioId(int funcionarioId) {
+    public void setFuncionarioId(String funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
 }
